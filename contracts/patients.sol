@@ -20,8 +20,8 @@ contract PatientManagement{
         gender_type gender;
     }
 
-    Patient[] private patients;
-    mapping (address => uint) private patientAddressToID;
+    Patient[] internal patients;
+    mapping (address => uint) internal patientAddressToID;
 
     function add_patient(string memory _address, string memory _name, string memory _phone, string memory _email, uint32 _dob, string memory _gender) public{
         gender_type sex;

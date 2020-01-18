@@ -30,8 +30,7 @@ contract HospitalManagement{
     }
 
     mapping (uint => uint) public doctorToHospital;
-    mapping (uint => uint) public hospitalDoctorCount;
-    mapping (address => uint) private doctorAddressToID;
+    mapping (address => uint) internal doctorAddressToID;
     Doctor[] public doctors;
     Hospital[] public hospitals;
 
@@ -49,7 +48,7 @@ contract HospitalManagement{
     function add_doc(string memory _name, string memory _phone, string memory _email, string memory _spec, uint8 _exp_yrs, uint _hid) public{
         uint id = doctors.push(Doctor(_name, _phone, _email, _spec, _exp_yrs, 0));
         doctorToHospital[id] = _hid;
-        hospitalDoctorCount[_hid] = hospitalDoctorCount[_hid].add(1);
+        hospitals[_hid].total_doctors = hospitals[_hid].total_doctors.add(1);
         doctorAddressToID[msg.sender] = id;
         emit NewDoctor(id, _name, _phone, _email, _spec, _exp_yrs, 0);
     }
