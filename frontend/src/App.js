@@ -1,9 +1,15 @@
 import React from "react";
-//import "./App.css";
-import Homepage from "./components/Homepage";
+import "./App.css";
+import RouterPage from "./routers";
 
 function App() {
-  return <Homepage />;
+  return (
+    <div className="App">
+      <header className="App-header">
+        <RouterPage />
+      </header>
+    </div>
+  );
 }
 
 export default App;
