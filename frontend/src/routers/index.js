@@ -1,13 +1,16 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import Homepage from "../components/Homepage";
 
 function RouterPage() {
   return (
     <div>
+      <Navbar />
       <Switch>
-        <Navbar />
-        <Route path="/" exact></Route>
+        <Route path="/" exact>
+          <Homepage />
+        </Route>
       </Switch>
     </div>
   );
