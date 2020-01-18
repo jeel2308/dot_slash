@@ -3,7 +3,7 @@ pragma solidity >= 0.5.0 < 0.7.0;
 import "./safemath.sol";
 
 contract HospitalManagement{
-    enum gender_type {Male, Female}
+    enum gender_type {Male, Female, Other}
     using SafeMath for uint256;
     using SafeMath32 for uint32;
     using SafeMath16 for uint16;
