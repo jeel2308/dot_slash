@@ -5,8 +5,11 @@ import Homepage from "../components/Homepage";
 import DoctorForm from "../components/DoctorForm";
 import PatientForm from "../components/PatientForm";
 import HospitalForm from "../components/HostpitalForm";
-
 import "../styles/body.scss";
+import PatientData from "../components/PatientData";
+import PatientGrid from "../components/PatientGrid";
+import DoctorGrid from "../components/DoctorGrid";
+
 function RouterPage() {
   return (
     <div className="body">
@@ -23,6 +26,15 @@ function RouterPage() {
         </Route>
         <Route path="/hospital" exact>
           <HospitalForm />
+        </Route>
+        <Route path="/patient-data" exact>
+          <PatientData />
+        </Route>
+        <Route path="/patient-view" exact>
+          <PatientGrid />
+        </Route>
+        <Route path="/doctor-view" exact>
+          <DoctorGrid />
         </Route>
       </Switch>
     </div>

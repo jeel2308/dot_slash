@@ -1,0 +1,12 @@
+.data {
+  padding: 3rem 18rem;
+}
+
+@media (max-width: 700px) {
+  .data {
+    padding: 2rem;
+  }
+  .info {
+    margin-top: 2rem;
+  }
+}

@@ -145,8 +145,12 @@ const FormikEnhance = withFormik({
     h_address: Yup.string()
       .required("Enter Hostpital address.")
       .max(200, "Address is less then 200 char."),
-    established_since: Yup.number().required("Plaease enter Established year."),
-    total_doctors: Yup.number().required("Total number is required.")
+    established_since: Yup.number()
+      .required("Plaease enter Established year.")
+      .positive("It has to be positive"),
+    total_doctors: Yup.number()
+      .required("Total number is required.")
+      .positive("It has to be positive")
   }),
   handleSubmit: (
     values,

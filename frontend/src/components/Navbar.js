@@ -33,7 +33,7 @@ function NavBar() {
           </Nav.Link>
           <Nav.Link>
             <Link className="navbar__link" to="/hospital">
-              hospital
+              Hospital
             </Link>
           </Nav.Link>
           {/* <NavDropdown title="Dropdown" id="collasible-nav-dropdown">

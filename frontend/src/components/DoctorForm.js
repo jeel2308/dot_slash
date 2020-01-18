@@ -89,6 +89,37 @@ const SignUp = ({ errors, touched, handleSubmit, isSubmitting, values }) => (
         </div>
       </div>
 
+      <div className="form__side-wrapper">
+        <div className="form__wrapper">
+          <label htmlFor="fee" className="form__label">
+            Fee
+          </label>
+          <Field
+            type="text"
+            name="fee"
+            placeholder="Fee"
+            className="form__input"
+          />
+          {touched.fee && errors.fee && (
+            <div className="form__error">{errors.fee}</div>
+          )}
+        </div>
+        <div className="form__wrapper">
+          <label htmlFor="recurring_fee" className="form__label">
+            Recurring Fee
+          </label>
+          <Field
+            type="text"
+            name="r_fee"
+            placeholder=" Recurring Fee"
+            className="form__input"
+          />
+          {touched.r_fee && errors.r_fee && (
+            <div className="form__error">{errors.r_fee}</div>
+          )}
+        </div>
+      </div>
+
       <button
         disabled={isSubmitting}
         type="submit"
@@ -106,14 +137,18 @@ const FormikEnhance = withFormik({
     phone,
     email,
     experience_yrs,
-    specialization
+    specialization,
+    fee,
+    r_fee
   }) => {
     return {
       dname: dname || "",
       phone: phone || "",
       email: email || "",
       experience_yrs: experience_yrs || "",
-      specialization: specialization || ""
+      specialization: specialization || "",
+      fee: fee || "",
+      r_fee: r_fee || ""
     };
   },
   validationSchema: Yup.object().shape({
@@ -123,7 +158,13 @@ const FormikEnhance = withFormik({
       .required("Email is required.")
       .email("Email has to be valide."),
     experience_yrs: Yup.number().required("Experience Year is required."),
-    specialization: Yup.string().required("Enter your specialization field.")
+    specialization: Yup.string().required("Enter your specialization field."),
+    fee: Yup.number()
+      .required("It is required.")
+      .positive("It has to be positive"),
+    r_fee: Yup.number()
+      .required("It is required.")
+      .positive("It has to be positive")
   }),
   handleSubmit: (
     values,

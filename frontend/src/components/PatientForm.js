@@ -3,6 +3,7 @@ import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import "../styles/DoctorForm.scss";
 import { Container } from "react-bootstrap";
+import { withRouter } from "react-router-dom";
 
 const SignUp = ({ errors, touched, handleSubmit, isSubmitting, values }) => (
   <Container className="form" style={{ fontSize: "11px" }}>
@@ -106,34 +107,38 @@ const SignUp = ({ errors, touched, handleSubmit, isSubmitting, values }) => (
   </Container>
 );
 
-const FormikEnhance = withFormik({
-  mapPropsToValues: ({ pname, phone, email, gender, dob }) => {
-    return {
-      pname: pname || "",
-      phone: phone || "",
-      email: email || "",
-      gender: gender || "",
-      dob: dob || ""
-    };
-  },
-  validationSchema: Yup.object().shape({
-    pname: Yup.string().required("Name is required."),
-    phone: Yup.string().required("Phone is required."),
-    email: Yup.string()
-      .required("Email is required.")
-      .email("Email has to be valide."),
-    gender: Yup.string().required("Enter your gender."),
-    dob: Yup.string().required("Date of Birth is required.")
-  }),
-  handleSubmit: (
-    values,
-    { resetForm, setSubmitting, setErrors, ...formikBag }
-  ) => {
-    // formikBag.props.registerUser(values, formikBag.props.history);
-    console.log(values);
-    resetForm();
-    setSubmitting(false);
-  }
-})(SignUp);
+const FormikEnhance = withRouter(
+  withFormik({
+    mapPropsToValues: ({ pname, phone, email, gender, dob }) => {
+      return {
+        pname: pname || "",
+        phone: phone || "",
+        email: email || "",
+        gender: gender || "",
+        dob: dob || ""
+      };
+    },
+    validationSchema: Yup.object().shape({
+      pname: Yup.string().required("Name is required."),
+      phone: Yup.string().required("Phone is required."),
+      email: Yup.string()
+        .required("Email is required.")
+        .email("Email has to be valide."),
+      gender: Yup.string().required("Enter your gender."),
+      dob: Yup.string().required("Date of Birth is required.")
+    }),
+    handleSubmit: (
+      values,
+      { resetForm, setSubmitting, setErrors, ...formikBag }
+    ) => {
+      // formikBag.props.registerUser(values, formikBag.props.history);
+
+      console.log(values);
+      resetForm();
+      setSubmitting(false);
+      formikBag.props.history.push("/patient-data");
+    }
+  })(SignUp)
+);
 
 export default FormikEnhance;
