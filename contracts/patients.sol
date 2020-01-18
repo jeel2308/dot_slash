@@ -56,5 +56,31 @@ contract PatientManagement{
         uint pid = patientAddressToID[msg.sender];
         authorizations[_did] = pid;
     }
+    function show_patient_profile()
+             public
+             view
+             returns(string memory _address,
+                     string memory _name,
+                     string memory _phone,
+                     string memory _email,
+                     uint32 _dob,
+                     string memory _gender)
+    {
+        Patient memory profile = patients[patientAddressToID[msg.sender]];
+        _address = profile.patient_addr;
+        _name = profile.name;
+        _phone = profile.phone;
+        _email = profile.email;
+        _dob = profile.dob;
+        if(profile.gender == gender_type.Male){
+            _gender = "Male";
+        }
+        else if(profile.gender == gender_type.Female){
+            _gender = "Female";
+        }
+        else{
+            _gender = "Other";
+        }
+    }
 
 }
