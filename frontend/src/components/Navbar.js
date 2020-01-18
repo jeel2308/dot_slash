@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Nav, Container } from "react-bootstrap";
+import { Navbar, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 function NavBar() {
@@ -12,13 +12,14 @@ function NavBar() {
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav />
         <Nav className="mr-auto">
-          <Link>
-            <Nav.Link>
-              <Link to="/doctor-form">Doctor</Link>
-            </Nav.Link>
-          </Link>
+          <Nav.Link>
+            <Link to="/doctor">Doctor</Link>
+          </Nav.Link>
           <Nav.Link>
             <Link to="/patient">Patient</Link>
+          </Nav.Link>
+          <Nav.Link>
+            <Link to="/hospital">hospital</Link>
           </Nav.Link>
           {/* <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
