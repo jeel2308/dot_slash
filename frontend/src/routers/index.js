@@ -5,8 +5,8 @@ import Navbar from "../components/Navbar";
 function RouterPage() {
   return (
     <div>
+      <Navbar />
       <Switch>
-        <Navbar />
         <Route path="/" exact></Route>
       </Switch>
     </div>
