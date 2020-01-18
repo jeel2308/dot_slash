@@ -19,7 +19,7 @@ class Homepage extends React.Component {
         <div className="option">
           <div className="container option__div">
             <h2>Some text</h2>
-            <Link to="/patient-form">
+            <Link to="/patient">
               <Button className="container__button" onClick={this.handleClick}>
                 I am a Patient
               </Button>
@@ -27,7 +27,7 @@ class Homepage extends React.Component {
           </div>
           <div className="container option__div">
             <h2>Some text</h2>
-            <Link to="/doctor-form">
+            <Link to="/doctor">
               <Button className="container__button" onClick={this.handleClick}>
                 I am a Doctor
               </Button>

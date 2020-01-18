@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import Homepage from "../components/Homepage";
 import DoctorForm from "../components/DoctorForm";
 import PatientForm from "../components/PatientForm";
+import HospitalForm from "../components/HostpitalForm";
 
 import "../styles/body.scss";
 function RouterPage() {
@@ -14,11 +15,14 @@ function RouterPage() {
         <Route path="/" exact>
           <Homepage />
         </Route>
-        <Route path="/doctor-form" exact>
+        <Route path="/doctor" exact>
           <DoctorForm />
         </Route>
-        <Route path="/patient-form" exact>
+        <Route path="/patient" exact>
           <PatientForm />
+        </Route>
+        <Route path="/hospital" exact>
+          <HospitalForm />
         </Route>
       </Switch>
     </div>
