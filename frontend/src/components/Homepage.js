@@ -3,6 +3,7 @@ import React from "react";
 // import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 // import Card from "react-bootstrap/Card";
+import { Link } from "react-router-dom";
 import "../styles/Homepage.scss";
 class Homepage extends React.Component {
   handleClick = event => {
@@ -18,15 +19,19 @@ class Homepage extends React.Component {
         <div className="option">
           <div className="container option__div">
             <h2>Some text</h2>
-            <Button className="container__button" onClick={this.handleClick}>
-              I am a Patient
-            </Button>
+            <Link to="/patient-form">
+              <Button className="container__button" onClick={this.handleClick}>
+                I am a Patient
+              </Button>
+            </Link>
           </div>
           <div className="container option__div">
             <h2>Some text</h2>
-            <Button className="container__button" onClick={this.handleClick}>
-              I am a Doctor
-            </Button>
+            <Link to="/doctor-form">
+              <Button className="container__button" onClick={this.handleClick}>
+                I am a Doctor
+              </Button>
+            </Link>
           </div>
         </div>
       </>

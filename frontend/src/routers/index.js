@@ -3,6 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Homepage from "../components/Homepage";
 import DoctorForm from "../components/DoctorForm";
+import PatientForm from "../components/PatientForm";
 
 import "../styles/body.scss";
 function RouterPage() {
@@ -15,6 +16,9 @@ function RouterPage() {
         </Route>
         <Route path="/doctor-form" exact>
           <DoctorForm />
+        </Route>
+        <Route path="/patient-form" exact>
+          <PatientForm />
         </Route>
       </Switch>
     </div>
