@@ -11,7 +11,7 @@ const Homepage = () => (
       <h3>Some description</h3>
     </div>
     <div className="option">
-      <div className="container">
+      <div className="container option__div">
         <h2>Some text</h2>
         <Button
           className="container__button"
@@ -22,7 +22,7 @@ const Homepage = () => (
           I am a Patient
         </Button>
       </div>
-      <div className="container">
+      <div className="container option__div">
         <h2>Some text</h2>
         <Button className="container__button">I am a Doctor</Button>
       </div>
