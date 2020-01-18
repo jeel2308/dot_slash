@@ -2,6 +2,10 @@ pragma solidity >= 0.5.0 < 0.7.0;
 
 import "./safemath.sol";
 
+/**
+ * @title PatientManagement
+ * @dev Stores patients data privately and provide functions to acess data
+ */
 contract PatientManagement{
     enum gender_type {Male, Female, Other}
     using SafeMath for uint256;
@@ -9,15 +13,19 @@ contract PatientManagement{
     using SafeMath16 for uint16;
     using SafeMath8 for uint8;
 
-    event NewPatient(uint patientID,
+    /**
+    * @dev event: New patient data added to blockchain
+    */
+    event NewPatient(address patient_account,
+                     uint patientID,
                      string patient_addr,
                      string name,
                      string phone,
                      string email,
                      uint32 dob,
                      string gender);
-
     struct Patient{
+        address payable patient_account;
         string patient_addr;
         string name;
         string phone;
@@ -30,6 +38,9 @@ contract PatientManagement{
     mapping (address => uint) internal patientAddressToID;
     mapping(uint => uint) internal authorizations;
 
+    /**
+    * @dev add data of new patient to blockchain
+    */
     function add_patient(string memory _address,
                          string memory _name,
                          string memory _phone,
@@ -48,14 +59,22 @@ contract PatientManagement{
         else{
             sex = gender_type.Other;
         }
-        uint id = patients.push(Patient(_address, _name, _phone, _email, _dob, sex));
+        uint id = patients.push(Patient(msg.sender, _address, _name, _phone, _email, _dob, sex));
         patientAddressToID[msg.sender] = id;
-        emit NewPatient(id, _address, _name, _phone, _email, _dob, _gender);
+        emit NewPatient(msg.sender, id, _address, _name, _phone, _email, _dob, _gender);
     }
+
+    /**
+    * @dev Authorize doctor to view patients health report
+    */
     function authorize(uint _did) public{
         uint pid = patientAddressToID[msg.sender];
         authorizations[_did] = pid;
     }
+
+    /**
+    * @dev show sender's profile if sender has registered
+    */
     function show_patient_profile()
              public
              view

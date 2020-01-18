@@ -2,12 +2,19 @@ pragma solidity >= 0.5.0 < 0.7.0;
 
 import "./safemath.sol";
 
+/**
+ * @title DoctorManagement
+ * @dev Stores doctors data publicly and provide functions to acess data conviniently
+ */
 contract DoctorManagement{
     using SafeMath for uint256;
     using SafeMath32 for uint32;
     using SafeMath16 for uint16;
     using SafeMath8 for uint8;
 
+    /**
+    * @dev event: New doctor data added to blockchain
+    */
     event NewDoctor(uint doctorID,
                     string name,
                     string phone,
@@ -17,6 +24,10 @@ contract DoctorManagement{
                     uint8 avg_rating,
                     uint first_time_fee,
                     uint recurring_fee);
+
+    /**
+    * @dev event: New hospital data added to blockchain
+    */
     event NewHospital(uint HospitalID,
                       string name,
                       string phone,
@@ -53,6 +64,9 @@ contract DoctorManagement{
     Doctor[] public doctors;
     Hospital[] public hospitals;
 
+    /**
+    * @dev list of doctors by specializations
+    */
     function spec_to_doc(string memory _specialization)
              public
              view
@@ -68,6 +82,10 @@ contract DoctorManagement{
         }
         return docs;
     }
+
+    /**
+    * @dev add data of new doctor to blockchain
+    */
     function add_doc(string memory _name,
                      string memory _phone,
                      string memory _email,
@@ -95,6 +113,10 @@ contract DoctorManagement{
         isDoctor[msg.sender] = true;
         emit NewDoctor(id, _name, _phone, _email, _spec, _exp_yrs, 0, _first_time_fee, _recurring_fee);
     }
+
+    /**
+    * @dev add data of new hospital to blockchain
+    */
     function add_hospital(string memory _name,
                           string memory _phone,
                           string memory _email,
