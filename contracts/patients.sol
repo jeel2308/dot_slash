@@ -28,8 +28,7 @@ contract PatientManagement{
 
     Patient[] internal patients;
     mapping (address => uint) internal patientAddressToID;
-    mapping(uint => uint) private authorizations;
-
+    mapping(uint => uint) internal authorizations;
 
     function add_patient(string memory _address,
                          string memory _name,
