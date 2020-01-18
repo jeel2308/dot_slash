@@ -22,6 +22,8 @@ contract PatientManagement{
 
     Patient[] internal patients;
     mapping (address => uint) internal patientAddressToID;
+    mapping(uint => uint) private authorizations;
+
 
     function add_patient(string memory _address, string memory _name, string memory _phone, string memory _email, uint32 _dob, string memory _gender) public{
         gender_type sex;
@@ -37,6 +39,10 @@ contract PatientManagement{
         uint id = patients.push(Patient(_address, _name, _phone, _email, _dob, sex));
         patientAddressToID[msg.sender] = id;
         emit NewPatient(id, _address, _name, _phone, _email, _dob, _gender);
+    }
+    function authorize(uint _did) public{
+        uint pid = patientAddressToID[msg.sender];
+        authorizations[_did] = pid;
     }
 
 }

@@ -31,11 +31,12 @@ contract HospitalManagement{
 
     mapping (uint => uint) public doctorToHospital;
     mapping (address => uint) internal doctorAddressToID;
+    mapping (string => uint) public specializedDoctorCount;
     Doctor[] public doctors;
     Hospital[] public hospitals;
 
     function spec_to_doc(string memory _specialization) public view returns(uint[] memory){
-        uint[] memory docs;
+        uint[] memory docs = new uint[](specializedDoctorCount[_specialization]);
         for(uint i = 0; i<doctors.length; i++){
             uint counter = 0;
             if(uint(keccak256(abi.encodePacked(doctors[i].specialization))) == uint(keccak256(abi.encodePacked(_specialization)))){
@@ -50,6 +51,7 @@ contract HospitalManagement{
         doctorToHospital[id] = _hid;
         hospitals[_hid].total_doctors = hospitals[_hid].total_doctors.add(1);
         doctorAddressToID[msg.sender] = id;
+        specializedDoctorCount[_spec] = specializedDoctorCount[_spec].add(1);
         emit NewDoctor(id, _name, _phone, _email, _spec, _exp_yrs, 0);
     }
     function add_hospital(string memory _name, string memory _phone, string memory _email, string memory _h_address, uint16 _est_since, uint16 _total_docs, uint8 _avg_rating) public{
