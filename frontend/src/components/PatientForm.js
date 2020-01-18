@@ -8,21 +8,21 @@ const SignUp = ({ errors, touched, handleSubmit, isSubmitting, values }) => (
   <Container className="form" style={{ fontSize: "11px" }}>
     <Form onSubmit={handleSubmit} className="login-form">
       <h3 style={{ textAlign: "center", margin: "1.5rem", fontSize: "3rem" }}>
-        Doctor Registration
+        Patient Registration
       </h3>
       <div className="form__side-wrapper">
         <div className="form__wrapper">
-          <label htmlFor="dname" className="form__label">
+          <label htmlFor="pname" className="form__label">
             Patient Name
           </label>
           <Field
             type="id"
-            name="dname"
+            name="pname"
             placeholder="Patient Name"
             className="form__input"
           />
-          {touched.dname && errors.dname && (
-            <div className="form__error">{errors.dname}</div>
+          {touched.pname && errors.pname && (
+            <div className="form__error">{errors.pname}</div>
           )}
         </div>
       </div>
@@ -61,7 +61,7 @@ const SignUp = ({ errors, touched, handleSubmit, isSubmitting, values }) => (
       <div className="form__side-wrapper">
         <div className="form__wrapper">
           <label htmlFor="dob" className="form__label">
-            dob
+            Date of Birth
           </label>
           <Field
             type="date"
@@ -69,12 +69,32 @@ const SignUp = ({ errors, touched, handleSubmit, isSubmitting, values }) => (
             placeholder="dob"
             className="form__input"
           />
-          {touched.specialization && errors.specialization && (
-            <div className="form__error">{errors.specialization}</div>
+          {touched.dob && errors.dob && (
+            <div className="form__error">{errors.dob}</div>
+          )}
+        </div>
+
+        {/** add select button for gender */}
+        <div className="form__wrapper">
+          <label htmlFor="gender" className="form__label">
+            Gender
+          </label>
+          <Field
+            name="gender"
+            as="select"
+            className="form__input"
+            value={values.gender}
+          >
+            <option value="" label="Select a complaint type" />
+            <option value="male" label="Male" />
+            <option value="female" label="Female" />
+            <option value="other" label="Other" />
+          </Field>
+          {errors.gender && touched.gender && (
+            <div className="form__error">{errors.gender}</div>
           )}
         </div>
       </div>
-      {/** add select button for gender */}
       <button
         disabled={isSubmitting}
         type="submit"
@@ -87,29 +107,23 @@ const SignUp = ({ errors, touched, handleSubmit, isSubmitting, values }) => (
 );
 
 const FormikEnhance = withFormik({
-  mapPropsToValues: ({
-    dname,
-    phone,
-    email,
-    experience_yrs,
-    specialization
-  }) => {
+  mapPropsToValues: ({ pname, phone, email, gender, dob }) => {
     return {
-      dname: dname || "",
+      pname: pname || "",
       phone: phone || "",
       email: email || "",
-      experience_yrs: experience_yrs || "",
-      specialization: specialization || ""
+      gender: gender || "",
+      dob: dob || ""
     };
   },
   validationSchema: Yup.object().shape({
-    dname: Yup.string().required("Name is required."),
+    pname: Yup.string().required("Name is required."),
     phone: Yup.string().required("Phone is required."),
     email: Yup.string()
       .required("Email is required.")
       .email("Email has to be valide."),
-    experience_yrs: Yup.number().required("Experience Year is required."),
-    specialization: Yup.string().required("Enter your specialization field.")
+    gender: Yup.string().required("Enter your gender."),
+    dob: Yup.string().required("Date of Birth is required.")
   }),
   handleSubmit: (
     values,
