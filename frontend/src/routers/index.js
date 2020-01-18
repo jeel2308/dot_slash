@@ -4,9 +4,10 @@ import Navbar from "../components/Navbar";
 import Homepage from "../components/Homepage";
 import DoctorForm from "../components/DoctorForm";
 
+import "../styles/body.scss";
 function RouterPage() {
   return (
-    <div>
+    <div className="body">
       <Navbar />
       <Switch>
         <Route path="/" exact>

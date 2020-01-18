@@ -1,18 +1,26 @@
 import React from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function NavBar() {
   return (
-    <Container>
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-        <Navbar.Brand href="#home">Medi-Info</Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav />
-          <Nav className="mr-auto">
-            <Nav.Link href="#features">Doctor</Nav.Link>
-            <Nav.Link href="#pricing">Patient</Nav.Link>
-            {/* <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
+    <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
+      <Navbar.Brand>
+        <Link to="/">Medi-Info</Link>
+      </Navbar.Brand>
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+      <Navbar.Collapse id="responsive-navbar-nav">
+        <Nav />
+        <Nav className="mr-auto">
+          <Link>
+            <Nav.Link>
+              <Link to="/doctor-form">Doctor</Link>
+            </Nav.Link>
+          </Link>
+          <Nav.Link>
+            <Link to="/patient">Patient</Link>
+          </Nav.Link>
+          {/* <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
                 Another action
@@ -23,16 +31,15 @@ function NavBar() {
                 Separated link
               </NavDropdown.Item>
             </NavDropdown> */}
-          </Nav>
-          {/* <Nav>
+        </Nav>
+        {/* <Nav>
             <Nav.Link href="#deets">More deets</Nav.Link>
             <Nav.Link eventKey={2} href="#memes">
               Dank memes
             </Nav.Link>
           </Nav> */}
-        </Navbar.Collapse>
-      </Navbar>
-    </Container>
+      </Navbar.Collapse>
+    </Navbar>
   );
 }
 
