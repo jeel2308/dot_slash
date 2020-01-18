@@ -14,7 +14,9 @@ contract DoctorManagement{
                     string email,
                     string spec,
                     uint8 expr_yrs,
-                    uint8 avg_rating);
+                    uint8 avg_rating,
+                    uint first_time_fee,
+                    uint recurring_fee);
     event NewHospital(uint HospitalID,
                       string name,
                       string phone,
@@ -24,12 +26,15 @@ contract DoctorManagement{
                       uint16 total_docs,
                       uint8 avg_rating);
     struct Doctor{
+        address payable doctor_account;
         string name;
         string phone;
         string email;
         string specialization;
         uint8 experience_yrs;
         uint8 avg_rating;
+        uint first_time_fee;
+        uint recurring_fee;
     }
     struct Hospital{
         string name;
@@ -68,16 +73,27 @@ contract DoctorManagement{
                      string memory _email,
                      string memory _spec,
                      uint8 _exp_yrs,
-                     uint _hid)
+                     uint _hid,
+                     uint _first_time_fee,
+                     uint _recurring_fee
+                     )
              public
     {
-        uint id = doctors.push(Doctor(_name, _phone, _email, _spec, _exp_yrs, 0));
+        uint id = doctors.push(Doctor(msg.sender,
+                                      _name,
+                                      _phone,
+                                      _email,
+                                      _spec,
+                                      _exp_yrs,
+                                      0,
+                                      _first_time_fee,
+                                      _recurring_fee));
         doctorToHospital[id] = _hid;
         hospitals[_hid].total_doctors = hospitals[_hid].total_doctors.add(1);
         doctorAddressToID[msg.sender] = id;
         specializedDoctorCount[_spec] = specializedDoctorCount[_spec].add(1);
         isDoctor[msg.sender] = true;
-        emit NewDoctor(id, _name, _phone, _email, _spec, _exp_yrs, 0);
+        emit NewDoctor(id, _name, _phone, _email, _spec, _exp_yrs, 0, _first_time_fee, _recurring_fee);
     }
     function add_hospital(string memory _name,
                           string memory _phone,
