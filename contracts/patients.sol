@@ -9,7 +9,13 @@ contract PatientManagement{
     using SafeMath16 for uint16;
     using SafeMath8 for uint8;
 
-    event NewPatient(uint patientID, string patient_addr, string name, string phone, string email, uint32 dob, string gender);
+    event NewPatient(uint patientID,
+                     string patient_addr,
+                     string name,
+                     string phone,
+                     string email,
+                     uint32 dob,
+                     string gender);
 
     struct Patient{
         string patient_addr;
@@ -25,7 +31,14 @@ contract PatientManagement{
     mapping(uint => uint) private authorizations;
 
 
-    function add_patient(string memory _address, string memory _name, string memory _phone, string memory _email, uint32 _dob, string memory _gender) public{
+    function add_patient(string memory _address,
+                         string memory _name,
+                         string memory _phone,
+                         string memory _email,
+                         uint32 _dob,
+                         string memory _gender)
+             public
+    {
         gender_type sex;
         if(uint(keccak256(abi.encodePacked(_gender))) == uint(keccak256(abi.encodePacked("Male")))){
             sex = gender_type.Male;
