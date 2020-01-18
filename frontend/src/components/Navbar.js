@@ -1,16 +1,25 @@
 import React from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function NavBar() {
   return (
     <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
-      <Navbar.Brand href="#home">Medi-Info</Navbar.Brand>
+      <Navbar.Brand>
+        <Link to="/">Medi-Info</Link>
+      </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav />
         <Nav className="mr-auto">
-          <Nav.Link href="#features">Doctor</Nav.Link>
-          <Nav.Link href="#pricing">Patient</Nav.Link>
+          <Link>
+            <Nav.Link>
+              <Link to="/doctor-form">Doctor</Link>
+            </Nav.Link>
+          </Link>
+          <Nav.Link>
+            <Link to="/patient">Patient</Link>
+          </Nav.Link>
           {/* <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
