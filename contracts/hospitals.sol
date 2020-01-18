@@ -2,7 +2,7 @@ pragma solidity >= 0.5.0 < 0.7.0;
 
 contract HospitalManagement{
     enum gender_type {Male, Female}
-    struct Doctors{
+    struct Doctor{
         address doctor_id;
         string name;
         string phone;
@@ -29,6 +29,15 @@ contract HospitalManagement{
         gender_type gender;
     }
     mapping (address => address) public doc_hospital;
+    Doctor[] public doctors;
 
-    function()
+    function spec_to_doc(string memory _specialization) public view returns(uint[] memory _docs){
+        for(uint i = 0; i<doctors.length; i++){
+            uint counter = 0;
+            if(uint(keccak256(abi.encodePacked(doctors[i].specialization))) == uint(keccak256(abi.encodePacked(_specialization)))){
+                _docs[counter] = i;
+                counter++;
+            }
+        }
+    }
 }
