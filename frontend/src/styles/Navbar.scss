@@ -1,0 +1,16 @@
+.navbar {
+  position: sticky !important;
+  top: 0 !important;
+
+  box-shadow: 0 0.5rem 1rem rgba(230, 230, 230, 0.8);
+  font-size: 1.4rem;
+  &__link {
+    text-decoration: none !important;
+    font-size: 1.2rem;
+    padding: 0 0.6rem;
+    color: black !important;
+    &:hover {
+      color: rgb(141, 119, 119) !important ;
+    }
+  }
+}

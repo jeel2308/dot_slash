@@ -1,25 +1,40 @@
 import React from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import "../styles/Navbar.scss";
 
 function NavBar() {
   return (
-    <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
+    <Navbar
+      collapseOnSelect
+      expand="lg"
+      bg="light"
+      variant="light"
+      className="navbar "
+    >
       <Navbar.Brand>
-        <Link to="/">Medi-Info</Link>
+        <Link to="/" className="navbar__link">
+          Medi-Info
+        </Link>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav />
         <Nav className="mr-auto">
           <Nav.Link>
-            <Link to="/doctor">Doctor</Link>
+            <Link className="navbar__link" to="/doctor">
+              Doctor
+            </Link>
           </Nav.Link>
           <Nav.Link>
-            <Link to="/patient">Patient</Link>
+            <Link className="navbar__link" to="/patient">
+              Patient
+            </Link>
           </Nav.Link>
           <Nav.Link>
-            <Link to="/hospital">hospital</Link>
+            <Link className="navbar__link" to="/hospital">
+              hospital
+            </Link>
           </Nav.Link>
           {/* <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>

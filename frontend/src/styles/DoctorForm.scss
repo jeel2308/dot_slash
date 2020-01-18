@@ -53,6 +53,12 @@
       padding-left: 1em;
     }
   }
+  ::-webkit-scrollbar {
+    height: 5px !important;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(221, 221, 221, 0.678) !important;
+  }
 }
 
 .login-form {
