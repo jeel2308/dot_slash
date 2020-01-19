@@ -4,6 +4,40 @@ import * as Yup from "yup";
 import "../styles/DoctorForm.scss";
 import { Container } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
+import Web3 from "web3";
+
+import PatientManagement from "../abis/PatientManagement.json";
+let contract;
+(async () => {
+  if (window.ethereum) {
+    window.web3 = new Web3(window.ethereum);
+    await window.ethereum.enable();
+  } else if (window.web3) {
+    window.web3 = new Web3(window.web3.currentProvider);
+  } else {
+    alert("no ethereum browser detected");
+    return;
+  }
+  const web3 = window.web3;
+
+  var accounts = await web3.eth.getAccounts();
+  accounts = accounts[0];
+
+  const networkID = await web3.eth.net.getId();
+  const networkData = PatientManagement.networks[networkID];
+  if (networkData) {
+    var patientContract = new web3.eth.Contract(
+      PatientManagement.abi,
+      networkData.address
+    );
+  }
+  return {
+    patientContract,
+    accounts
+  };
+})().then(val => {
+  contract = val;
+});
 
 const SignUp = ({ errors, touched, handleSubmit, isSubmitting, values }) => (
   <Container className="form" style={{ fontSize: "11px" }}>
@@ -87,9 +121,9 @@ const SignUp = ({ errors, touched, handleSubmit, isSubmitting, values }) => (
             value={values.gender}
           >
             <option value="" label="Select a complaint type" />
-            <option value="male" label="Male" />
-            <option value="female" label="Female" />
-            <option value="other" label="Other" />
+            <option value="Male" label="Male" />
+            <option value="Female" label="Female" />
+            <option value="Other" label="Other" />
           </Field>
           {errors.gender && touched.gender && (
             <div className="form__error">{errors.gender}</div>
@@ -133,7 +167,21 @@ const FormikEnhance = withRouter(
     ) => {
       // formikBag.props.registerUser(values, formikBag.props.history);
 
-      console.log(values);
+      const { dob, pname, gender, email, phone } = values;
+      //console.log(typeof dob);
+      contract.patientContract.methods
+        .add_patient(
+          "kjnjdngvkrdngv",
+          pname,
+          phone,
+          email,
+          new Date().getTime(),
+          gender
+        )
+        .send({ from: contract.accounts })
+        .on("receipt", () => {
+          console.log("done");
+        });
       resetForm();
       setSubmitting(false);
       formikBag.props.history.push("/patient-data");

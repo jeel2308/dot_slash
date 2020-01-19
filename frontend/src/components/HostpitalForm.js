@@ -3,6 +3,40 @@ import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import "../styles/DoctorForm.scss";
 import { Container } from "react-bootstrap";
+import Web3 from "web3";
+
+import DoctorManagement from "../abis/DoctorManagement.json";
+let contract;
+(async () => {
+  if (window.ethereum) {
+    window.web3 = new Web3(window.ethereum);
+    await window.ethereum.enable();
+  } else if (window.web3) {
+    window.web3 = new Web3(window.web3.currentProvider);
+  } else {
+    alert("no ethereum browser detected");
+    return;
+  }
+  const web3 = window.web3;
+
+  var accounts = await web3.eth.getAccounts();
+  accounts = accounts[0];
+
+  const networkID = await web3.eth.net.getId();
+  const networkData = DoctorManagement.networks[networkID];
+  if (networkData) {
+    var DoctorContract = new web3.eth.Contract(
+      DoctorManagement.abi,
+      networkData.address
+    );
+  }
+  return {
+    DoctorContract,
+    accounts
+  };
+})().then(val => {
+  contract = val;
+});
 
 const SignUp = ({ errors, touched, handleSubmit, isSubmitting, values }) => (
   <Container className="form" style={{ fontSize: "11px" }}>
@@ -156,8 +190,25 @@ const FormikEnhance = withFormik({
     values,
     { resetForm, setSubmitting, setErrors, ...formikBag }
   ) => {
+    const {
+      hname,
+      phone,
+      email,
+      h_address,
+      established_since,
+      total_doctors
+    } = values;
     // formikBag.props.registerUser(values, formikBag.props.history);
     console.log(values);
+    contract.DoctorContract.methods
+      .add_hospital(hname, phone, email, h_address, established_since)
+      .send({ from: contract.accounts })
+      .then(receipt => {
+        console.log("done");
+      })
+      .catch(e => {
+        console.log(e);
+      });
     resetForm();
     setSubmitting(false);
   }
