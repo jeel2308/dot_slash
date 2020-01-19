@@ -136,6 +136,9 @@ contract DoctorManagement{
         emit NewHospital(id, _name, _phone, _email, _h_address, _est_since, 0, 0);
     }
 
+    /**
+    * @dev function for changing doctor's profile on blockchain
+    */
     function change_doc_profile(string memory _name,
                                 string memory _phone,
                                 string memory _email,
@@ -158,6 +161,9 @@ contract DoctorManagement{
         doctorToHospital[id] = _hid;
     }
 
+    /**
+    * @dev function for changing hospital's profile on blockchain
+    */
     function change_hospital_profile(uint _hid,
                                      string memory _name,
                                      string memory _phone,

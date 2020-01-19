@@ -104,6 +104,9 @@ contract PatientManagement{
         }
     }
 
+    /**
+    * @dev function for changing patient's profile on blockchain
+    */
     function change_patient_profile(string memory _address,
                                     string memory _name,
                                     string memory _phone,
