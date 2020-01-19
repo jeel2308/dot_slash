@@ -42,7 +42,7 @@
     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit">
+  <widget class="QLineEdit" name="phone">
    <property name="geometry">
     <rect>
      <x>110</x>
@@ -61,7 +61,7 @@ padding: 1px 18px 1px 3px;</string>
     <string/>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_2">
+  <widget class="QLineEdit" name="email">
    <property name="geometry">
     <rect>
      <x>430</x>
@@ -212,7 +212,7 @@ padding: 1px 18px 1px 3px;</string>
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_3">
+  <widget class="QLineEdit" name="name">
    <property name="geometry">
     <rect>
      <x>110</x>
@@ -360,7 +360,7 @@ padding: 1px 18px 1px 3px;</string>
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_5">
+  <widget class="QLineEdit" name="address">
    <property name="geometry">
     <rect>
      <x>430</x>
@@ -389,7 +389,7 @@ padding: 1px 18px 1px 3px;</string>
     </rect>
    </property>
   </widget>
-  <widget class="QRadioButton" name="radioButton">
+  <widget class="QRadioButton" name="male">
    <property name="geometry">
     <rect>
      <x>110</x>
@@ -402,7 +402,10 @@ padding: 1px 18px 1px 3px;</string>
     <string>Male</string>
    </property>
   </widget>
-  <widget class="QRadioButton" name="radioButton_2">
+  <widget class="QRadioButton" name="female">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>190</x>
@@ -415,7 +418,10 @@ padding: 1px 18px 1px 3px;</string>
     <string>Female</string>
    </property>
   </widget>
-  <widget class="QRadioButton" name="radioButton_3">
+  <widget class="QRadioButton" name="other">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>280</x>
