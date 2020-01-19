@@ -49,6 +49,7 @@ contract PatientManagement{
                          string memory _gender)
              public
     {
+        require(!(patientAddressToID[msg.sender] == 0 && patients.length > 0), "Patient already registered");
         gender_type sex;
         if(uint(keccak256(abi.encodePacked(_gender))) == uint(keccak256(abi.encodePacked("Male")))){
             sex = gender_type.Male;
@@ -59,7 +60,7 @@ contract PatientManagement{
         else{
             sex = gender_type.Other;
         }
-        uint id = patients.push(Patient(msg.sender, _address, _name, _phone, _email, _dob, sex));
+        uint id = patients.push(Patient(msg.sender, _address, _name, _phone, _email, _dob, sex)).sub(1);
         patientAddressToID[msg.sender] = id;
         emit NewPatient(msg.sender, id, _address, _name, _phone, _email, _dob, _gender);
     }
@@ -82,8 +83,8 @@ contract PatientManagement{
                      string memory _name,
                      string memory _phone,
                      string memory _email,
-                     uint32 _dob,
-                     string memory _gender)
+                     string memory _gender,
+                     uint32 _dob)
     {
         Patient memory profile = patients[patientAddressToID[msg.sender]];
         _address = profile.patient_addr;
@@ -100,6 +101,10 @@ contract PatientManagement{
         else{
             _gender = "Other";
         }
+    }
+
+    function debug() public view returns(uint){
+        return patientAddressToID[msg.sender];
     }
 
 }
