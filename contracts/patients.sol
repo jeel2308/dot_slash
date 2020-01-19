@@ -49,7 +49,7 @@ contract PatientManagement{
                          string memory _gender)
              public
     {
-        require(!(patientAddressToID[msg.sender] == 0 && patients.length > 0), "Patient already registered");
+        require((patientAddressToID[msg.sender] == 0 && patients.length > 0), "Patient already registered");
         gender_type sex;
         if(uint(keccak256(abi.encodePacked(_gender))) == uint(keccak256(abi.encodePacked("Male")))){
             sex = gender_type.Male;
@@ -86,6 +86,7 @@ contract PatientManagement{
                      string memory _gender,
                      uint32 _dob)
     {
+        require((patientAddressToID[msg.sender] != 0 || patients.length > 0), "patient hasn't registered");
         Patient memory profile = patients[patientAddressToID[msg.sender]];
         _address = profile.patient_addr;
         _name = profile.name;
@@ -103,8 +104,32 @@ contract PatientManagement{
         }
     }
 
-    function debug() public view returns(uint){
-        return patientAddressToID[msg.sender];
+    function change_patient_profile(string memory _address,
+                                    string memory _name,
+                                    string memory _phone,
+                                    string memory _email,
+                                    uint32 _dob,
+                                    string memory _gender)
+             public
+    {
+        require((patientAddressToID[msg.sender] != 0 || patients.length > 0), "patient hasn't registered");
+        gender_type sex;
+        if(uint(keccak256(abi.encodePacked(_gender))) == uint(keccak256(abi.encodePacked("Male")))){
+            sex = gender_type.Male;
+        }
+        else if(uint(keccak256(abi.encodePacked(_gender))) == uint(keccak256(abi.encodePacked("Female")))){
+            sex = gender_type.Female;
+        }
+        else{
+            sex = gender_type.Other;
+        }
+        uint id = patientAddressToID[msg.sender];
+        patients[id].patient_addr = _address;
+        patients[id].name = _name;
+        patients[id].phone = _phone;
+        patients[id].email = _email;
+        patients[id].dob = _dob;
+        patients[id].gender = sex;
     }
 
 }

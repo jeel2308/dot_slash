@@ -64,6 +64,11 @@ contract DoctorManagement{
     Doctor[] public doctors;
     Hospital[] public hospitals;
 
+    modifier onlyDoctor(){
+        require(isDoctor[msg.sender], "sender isn't a doctor");
+        _;
+    }
+
     /**
     * @dev list of doctors by specializations
     */
@@ -97,7 +102,7 @@ contract DoctorManagement{
                      )
              public
     {
-        require(!(doctorAddressToID[msg.sender] == 0 && doctors.length > 0), "Doctor already registered");
+        require((doctorAddressToID[msg.sender] == 0 && doctors.length > 0), "Doctor already registered");
         uint id = doctors.push(Doctor(msg.sender,
                                       _name,
                                       _phone,
@@ -124,10 +129,48 @@ contract DoctorManagement{
                           string memory _h_address,
                           uint16 _est_since)
              public
+             onlyDoctor
     {
         require(hospitals.length > 0, "Patient already registered");
         // check duplicate hospital in frontend cause gas expensive
         uint id = hospitals.push(Hospital(_name, _phone, _email, _h_address, _est_since, 0, 0)).sub(1);
         emit NewHospital(id, _name, _phone, _email, _h_address, _est_since, 0, 0);
+    }
+
+    function change_doc_profile(string memory _name,
+                                string memory _phone,
+                                string memory _email,
+                                string memory _spec,
+                                uint8 _experience_yrs,
+                                uint _hid,
+                                uint _first_time_fee,
+                                uint _recurring_fee)
+             public
+    {
+        uint id = doctorAddressToID[msg.sender];
+        doctors[id].name = _name;
+        doctors[id].phone = _phone;
+        doctors[id].email = _email;
+        doctors[id].specialization = _spec;
+        doctors[id].experience_yrs = _experience_yrs;
+        doctors[id].first_time_fee = _first_time_fee;
+        doctors[id].recurring_fee = _recurring_fee;
+        doctorToHospital[id] = _hid;
+    }
+
+    function change_hospital_profile(uint _hid,
+                                     string memory _name,
+                                     string memory _phone,
+                                     string memory _email,
+                                     string memory _h_address,
+                                     uint16 _est_since)
+             public
+             onlyDoctor
+    {
+        hospitals[_hid].name = _name;
+        hospitals[_hid].phone = _phone;
+        hospitals[_hid].email = _email;
+        hospitals[_hid].h_address = _h_address;
+        hospitals[_hid].established_since = _est_since;
     }
 }
