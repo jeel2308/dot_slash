@@ -102,7 +102,7 @@ contract DoctorManagement{
                      )
              public
     {
-        require((doctorAddressToID[msg.sender] == 0 && doctors.length > 0), "Doctor already registered");
+        require(doctors[doctorAddressToID[msg.sender]].doctor_account != msg.sender,  "Doctor already registered");
         uint id = doctors.push(Doctor(msg.sender,
                                       _name,
                                       _phone,
@@ -131,7 +131,6 @@ contract DoctorManagement{
              public
              onlyDoctor
     {
-        require(hospitals.length > 0, "Patient already registered");
         // check duplicate hospital in frontend cause gas expensive
         uint id = hospitals.push(Hospital(_name, _phone, _email, _h_address, _est_since, 0, 0)).sub(1);
         emit NewHospital(id, _name, _phone, _email, _h_address, _est_since, 0, 0);
@@ -147,6 +146,7 @@ contract DoctorManagement{
                                 uint _recurring_fee)
              public
     {
+        require(doctors[doctorAddressToID[msg.sender]].doctor_account == msg.sender,  "Doctor hasn't registered");
         uint id = doctorAddressToID[msg.sender];
         doctors[id].name = _name;
         doctors[id].phone = _phone;

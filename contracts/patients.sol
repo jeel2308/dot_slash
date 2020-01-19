@@ -49,7 +49,7 @@ contract PatientManagement{
                          string memory _gender)
              public
     {
-        require((patientAddressToID[msg.sender] == 0 && patients.length > 0), "Patient already registered");
+        require((patients[patientAddressToID[msg.sender]].patient_account != msg.sender), "patient has already registered");
         gender_type sex;
         if(uint(keccak256(abi.encodePacked(_gender))) == uint(keccak256(abi.encodePacked("Male")))){
             sex = gender_type.Male;
@@ -86,7 +86,7 @@ contract PatientManagement{
                      string memory _gender,
                      uint32 _dob)
     {
-        require((patientAddressToID[msg.sender] != 0 || patients.length > 0), "patient hasn't registered");
+        require((patients[patientAddressToID[msg.sender]].patient_account == msg.sender), "patient hasn't registered");
         Patient memory profile = patients[patientAddressToID[msg.sender]];
         _address = profile.patient_addr;
         _name = profile.name;
@@ -112,7 +112,7 @@ contract PatientManagement{
                                     string memory _gender)
              public
     {
-        require((patientAddressToID[msg.sender] != 0 || patients.length > 0), "patient hasn't registered");
+        require((patients[patientAddressToID[msg.sender]].patient_account == msg.sender), "patient hasn't registered");
         gender_type sex;
         if(uint(keccak256(abi.encodePacked(_gender))) == uint(keccak256(abi.encodePacked("Male")))){
             sex = gender_type.Male;
